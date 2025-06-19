@@ -4,3 +4,9 @@ doc
 *.orig
 *.un~
 *.cap
+
+*bin/*.cap
+**/ant-javacard.jar
+bin/
+**/PackageInfo.java
+*.bak

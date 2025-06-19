@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="IsoApplet" default="dist" basedir=".">
-
-    <get src="https://github.com/martinpaljak/ant-javacard/releases/latest/download/ant-javacard.jar" dest="." skipexisting="true"/>
-    <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ant-javacard.jar"/>
-
-    <description>Builds the project. </description>
-    <target name="dist" description="generate the distribution">
-        <tstamp/>
-        <javacard jckit="ext/sdks/jc310r20210706_kit">
-            <cap targetsdk="3.0.4" aid="f2:76:a2:88:bc:fb:a6:9d:34:f3:10" output="IsoApplet.cap" sources="src" version="1.0">
-                <applet class="xyz.wendland.javacard.pki.isoapplet.IsoApplet" aid="f2:76:a2:88:bc:fb:a6:9d:34:f3:10:01"/>
-            </cap>
-        </javacard>
+<project name="IsoApplet" default="convert" basedir=".">
+    <import file="ant/build.properties.xml"/>
+	
+	<target name="convert_ant_jc">
+	    <subant target="convertall">
+            <fileset dir=".">
+			    <!-- Import all build targets for ant.javacard -->
+				<include name="ant/build.ant.javacard.xml"/>
+			</fileset>
+		</subant>
+	</target>
+    <target name="convert"  depends="clean">
+        <subant target="convert">
+            <fileset dir=".">
+			    <!-- Import all build targets for each JCSDK version -->
+				<!--include name="build.jc21.xml"/-->
+				<!-- include name="ant/build.jc211.xml"/-->
+				<!--include name="ant/build.jc212.xml"/-->
+				<!--include name="ant/build.jc220.xml"/-->
+				<!--include name="ant/build.jc221.xml"/-->
+				<!--include name="ant/build.jc222.xml"/-->
+				<!--include name="ant/build.jc301.xml"/-->
+				<!--include name="ant/build.jc302.xml"/-->
+				<!--include name="ant/build.jc303.xml"/-->
+				<include name="ant/build.jc304.xml"/>
+				<include name="ant/build.jc305u1.xml"/>
+				<include name="ant/build.jc305u2.xml"/>
+				<include name="ant/build.jc305u3.xml"/>
+				<include name="ant/build.jc305u4.xml"/>
+				<include name="ant/build.jc310b43.xml"/>
+				<include name="ant/build.jc310r20210706.xml"/>
+				<include name="ant/build.jc320v240.xml"/>
+				<include name="ant/build.jc320v241.xml"/>
+				<include name="ant/build.jc320v250.xml"/>
+            </fileset>
+        </subant>
     </target>
-    <target name="clean" description="clean up">
-        <!-- Delete the built applet -->
-        <delete dir="IsoApplet.cap"/>
-    </target>
-
+	<!-- Target: Clean up build artifacts -->
+	<target name="clean" description="Delete build and output directories to ensure a clean build environment">
+		<delete dir="bin"/>
+	</target>
 </project>
