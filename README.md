@@ -1,3 +1,4 @@
+Please see [README.FORK](README.FORK.md) for more details about this fork.
 # General Information
 The Java Card IsoApplet (e.g. for use with OpenSC).
 The Applet is capable of saving a PKCS#15 file structure and performing PKI related operations using the private key, such as signing or decrypting.
